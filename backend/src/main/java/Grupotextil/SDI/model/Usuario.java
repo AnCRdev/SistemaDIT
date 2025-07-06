@@ -1,6 +1,9 @@
 package Grupotextil.SDI.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import java.util.UUID;
 
 @Entity
@@ -10,15 +13,22 @@ public class Usuario {
     @GeneratedValue
     private UUID id;
 
+    @NotBlank(message = "El nombre es obligatorio")
     @Column(nullable = false)
     private String nombre;
 
+    @NotBlank(message = "El correo es obligatorio")
+    @Email(message = "El formato del correo no es válido")
     @Column(nullable = false, unique = true)
     private String correo;
 
+    @NotBlank(message = "La contraseña es obligatoria")
     @Column(nullable = false)
     private String contraseña;
 
+    @NotBlank(message = "El rol es obligatorio")
+    @Pattern(regexp = "^(Administrador|Gestor de Inventario|Gerente|Vendedor)$", 
+             message = "El rol debe ser: Administrador, Gestor de Inventario, Gerente o Vendedor")
     @Column(nullable = false)
     private String rol;
 

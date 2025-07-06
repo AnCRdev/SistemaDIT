@@ -1,6 +1,9 @@
 package Grupotextil.SDI.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -10,35 +13,41 @@ public class Producto {
     @GeneratedValue
     private UUID id;
 
+    @NotBlank(message = "El código es obligatorio")
     @Column(nullable = false, unique = true)
     private String codigo;
 
+    @NotBlank(message = "El nombre es obligatorio")
     @Column(nullable = false)
     private String nombre;
 
     private String descripcion;
 
+    @NotNull(message = "El stock es obligatorio")
+    @Min(value = 0, message = "El stock debe ser mayor o igual a 0")
     @Column(nullable = false)
     private Integer stock;
 
+    @Min(value = 0, message = "El stock mínimo debe ser mayor o igual a 0")
     private Integer stockMinimo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private CategoriaProducto categoria;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unidad_id")
     private UnidadMedida unidad;
 
+    @NotBlank(message = "El tipo es obligatorio")
     @Column(nullable = false)
     private String tipo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_producto_id")
     private TipoProducto tipoProducto;
 

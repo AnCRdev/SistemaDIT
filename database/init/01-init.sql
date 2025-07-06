@@ -134,25 +134,6 @@ CREATE TABLE insumos_orden (
   cantidad_utilizada NUMERIC CHECK (cantidad_utilizada >= 0)
 );
 
--- NOTIFICACIONES DE STOCK
-CREATE TABLE notificaciones (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  producto_id UUID REFERENCES productos(id),
-  mensaje TEXT NOT NULL,
-  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  leido BOOLEAN DEFAULT FALSE,
-  conflicto_id UUID REFERENCES conflictos_subprocesos(id)  -- agregado para vincular alertas a conflictos
-);
-
--- LOG DE ACTIVIDADES
-CREATE TABLE logs_actividad (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  usuario_id UUID REFERENCES usuarios(id),
-  accion TEXT NOT NULL,
-  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  descripcion TEXT
-);
-
 -- --------------------------------------------------
 -- ===== IMPLEMENTACIÓN DE RF‑05: CONFLICTOS & SOLUCIONES
 
@@ -198,4 +179,23 @@ INSERT INTO base_conocimiento_soluciones (tipo_error, causa, solucion) VALUES
 
 -- 3) Índices de apoyo para consultas frecuentes
 CREATE INDEX idx_conflictos_etapa ON conflictos_subprocesos(etapa_asignada_id);
-CREATE INDEX idx_conflictos_estado ON conflictos_subprocesos(estado); 
+CREATE INDEX idx_conflictos_estado ON conflictos_subprocesos(estado);
+
+-- NOTIFICACIONES DE STOCK
+CREATE TABLE notificaciones (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  producto_id UUID REFERENCES productos(id),
+  mensaje TEXT NOT NULL,
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  leido BOOLEAN DEFAULT FALSE,
+  conflicto_id UUID REFERENCES conflictos_subprocesos(id)  -- agregado para vincular alertas a conflictos
+);
+
+-- LOG DE ACTIVIDADES
+CREATE TABLE logs_actividad (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  usuario_id UUID REFERENCES usuarios(id),
+  accion TEXT NOT NULL,
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  descripcion TEXT
+); 

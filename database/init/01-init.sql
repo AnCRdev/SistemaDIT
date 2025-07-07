@@ -55,6 +55,7 @@ CREATE TABLE productos (
   descripcion TEXT,
   stock INTEGER CHECK (stock >= 0) NOT NULL,
   stock_minimo INTEGER CHECK (stock_minimo >= 0) DEFAULT 0,
+  precio NUMERIC(10, 2) CHECK (precio > 0),
   proveedor_id UUID REFERENCES proveedores(id),
   categoria_id UUID REFERENCES categorias_productos(id),
   unidad_id UUID REFERENCES unidades_medida(id),
@@ -85,8 +86,10 @@ CREATE TABLE ordenes_produccion (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   producto_id UUID REFERENCES productos(id),
   cantidad INTEGER CHECK (cantidad > 0),
+  responsable_id UUID REFERENCES usuarios(id),
   fecha_inicio DATE,
   fecha_fin DATE,
+  observaciones TEXT,
   estado TEXT CHECK (estado IN ('Pendiente', 'En Proceso', 'Finalizado')) DEFAULT 'Pendiente'
 );
 

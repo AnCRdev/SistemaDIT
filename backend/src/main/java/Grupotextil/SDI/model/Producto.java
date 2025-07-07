@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -51,6 +53,10 @@ public class Producto {
     @JoinColumn(name = "tipo_producto_id")
     private TipoProducto tipoProducto;
 
+    @Positive(message = "El precio debe ser mayor a 0")
+    @Column(precision = 10, scale = 2)
+    private BigDecimal precio;
+
     // Getters y setters
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
@@ -74,4 +80,6 @@ public class Producto {
     public void setTipo(String tipo) { this.tipo = tipo; }
     public TipoProducto getTipoProducto() { return tipoProducto; }
     public void setTipoProducto(TipoProducto tipoProducto) { this.tipoProducto = tipoProducto; }
+    public BigDecimal getPrecio() { return precio; }
+    public void setPrecio(BigDecimal precio) { this.precio = precio; }
 } 

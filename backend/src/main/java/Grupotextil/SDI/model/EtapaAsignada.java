@@ -121,7 +121,8 @@ public class EtapaAsignada {
     public enum EstadoEtapa {
         PENDIENTE("Pendiente"),
         EN_PROCESO("En Proceso"),
-        FINALIZADO("Finalizado");
+        FINALIZADO("Finalizado"),
+        EN_CONFLICTO("En Conflicto");
 
         private final String valor;
 

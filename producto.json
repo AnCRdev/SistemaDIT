@@ -1,0 +1,12 @@
+﻿{
+    "codigo": "CAM-001",
+    "nombre": "Camiseta Basica",
+    "descripcion": "Camiseta de algodón",
+    "tipo": "Producto Terminado",
+    "stock": 100,
+    "precio": 25.50,
+    "proveedor": { "id": "5996ec61-8779-4d69-8e69-c64964f8dde3" },
+    "unidad": { "id": "b886113a-a9b1-4607-8320-9b17a8d52f7d" },
+    "categoria": { "id": "6cf947b0-e5fe-4853-bb5c-b93c91f6b412" },
+    "tipoProducto": { "id": "8a3c7ef9-8e83-46d1-ae0c-513d4614086b" }
+}

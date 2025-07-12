@@ -90,7 +90,7 @@ CREATE TABLE ordenes_produccion (
   fecha_inicio DATE,
   fecha_fin DATE,
   observaciones TEXT,
-  estado TEXT CHECK (estado IN ('Pendiente', 'En Proceso', 'Finalizado')) DEFAULT 'Pendiente'
+  estado TEXT CHECK (estado IN ('Pendiente', 'En Proceso', 'Finalizado', 'En Conflicto')) DEFAULT 'Pendiente'
 );
 
 -- ETAPAS DEFINIDAS
@@ -113,7 +113,7 @@ CREATE TABLE etapas_asignadas (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   orden_id UUID REFERENCES ordenes_produccion(id) ON DELETE CASCADE,
   etapa_id UUID REFERENCES etapas_definidas(id) ON DELETE CASCADE,
-  estado TEXT CHECK (estado IN ('Pendiente', 'En Proceso', 'Finalizado')) DEFAULT 'Pendiente',
+  estado TEXT CHECK (estado IN ('Pendiente', 'En Proceso', 'Finalizado', 'En Conflicto')) DEFAULT 'Pendiente',
   fecha_inicio DATE,
   fecha_fin DATE,
   tiempo_estimado INTERVAL,
